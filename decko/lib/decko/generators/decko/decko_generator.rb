@@ -189,6 +189,7 @@ class DeckoGenerator < Rails::Generators::AppBase
     empty_directory "spec"
     template "rspec", ".rspec"
     template "simplecov", ".simplecov"
+    template "pryrc", ".pryrc"
     empty_directory "bin"
     inside "bin" do
       template "spring"
