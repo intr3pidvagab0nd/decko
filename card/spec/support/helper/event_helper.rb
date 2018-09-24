@@ -85,11 +85,9 @@ class Card
         Delayed::Worker.delay_jobs = true
         expect(Delayed::Job.count).to eq(0), "expected delayed job to start with an empty queue"
         yield
-        if count
-          expect(Delayed::Job.count).to eq(count)
-        end
+        expect(Delayed::Job.count).to eq(count) if count
         Delayed::Worker.new.work_off
-        expect(Delayed::Job.count).to eq(0), "not all delayed jobs were executed"
+        expect(Delayed::Job.count).to eq(0), "not all delayed jobs were executed: #{Delayed::Job.last.last_error}"
         Delayed::Worker.delay_jobs = false
       end
     end
